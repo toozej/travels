@@ -2,3 +2,4 @@ baseURL = 'https://travels.toozej.com'
 languageCode = 'en-us'
 title = 'Travels and Adventures'
 theme = 'quint'
+enableRobotsTXT = true

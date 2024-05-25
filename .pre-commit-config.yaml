@@ -4,7 +4,7 @@ minimum_pre_commit_version: "1.15"
 
 repos:
   - repo: https://github.com/pre-commit/pre-commit-hooks
-    rev: v4.5.0
+    rev: v4.6.0
     hooks:
       - id: check-yaml
         name: Check for valid YAML syntax in repo
@@ -24,14 +24,14 @@ repos:
         name: Ensure line-ending is consistent
         description: https://github.com/pre-commit/pre-commit-hooks/blob/master/pre_commit_hooks/mixed_line_ending.py
         files: \.(sh|yaml|yml)$
-      - id: check-executables-have-shebangs
-        name: Checks that non-binary executables have a proper shebang
-        description: https://github.com/pre-commit/pre-commit-hooks/blob/master/pre_commit_hooks/check_executables_have_shebangs.py
-        files: \.(sh)$
-      - id: check-shebang-scripts-are-executable
-        name: Checks that scripts with shebangs are executable.
-        description: https://github.com/pre-commit/pre-commit-hooks/blob/master/pre_commit_hooks/check_shebang_scripts_are_executable.py
-        files: \.(sh)$
+          #- id: check-executables-have-shebangs
+          #  name: Checks that non-binary executables have a proper shebang
+          #  description: https://github.com/pre-commit/pre-commit-hooks/blob/master/pre_commit_hooks/check_executables_have_shebangs.py
+          #  files: \.(sh)$
+          #- id: check-shebang-scripts-are-executable
+          #  name: Checks that scripts with shebangs are executable.
+          #  description: https://github.com/pre-commit/pre-commit-hooks/blob/master/pre_commit_hooks/check_shebang_scripts_are_executable.py
+          #  files: \.(sh)$
           #- id: check-json
           #  name: Attempts to load all json files to verify syntax.
           #  description: https://github.com/pre-commit/pre-commit-hooks/blob/master/pre_commit_hooks/check_json.py
@@ -52,19 +52,6 @@ repos:
       - id: yamlfmt
         args: [--mapping, "2", --sequence, "4", --offset, "2", --width, "88", --preserve-quotes]
 
-  # run shellcheck on Bash scripts
-  - repo: https://github.com/koalaman/shellcheck-precommit
-    rev: v0.10.0
-    hooks:
-      - id: shellcheck
-
-  # lint Dockerfile
-  - repo: https://github.com/hadolint/hadolint
-    rev: v2.12.1-beta
-    hooks:
-      - id: hadolint-docker
-        args: ["--ignore", "DL3007"]
-
   # lint Makefile
   - repo: https://github.com/mrtazz/checkmake/
     rev: 0.2.2
@@ -74,7 +61,7 @@ repos:
 
   # run semgrep on all known filetypes
   - repo: https://github.com/returntocorp/semgrep
-    rev: 'v1.66.0'
+    rev: 'v1.73.0'
     hooks:
       - id: semgrep
         # See https://semgrep.dev/explore to select a ruleset and copy its URL

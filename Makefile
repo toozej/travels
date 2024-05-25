@@ -8,9 +8,6 @@ MAKEFLAGS += --no-builtin-rules
 .DEFAULT_GOAL := help
 
 # Build info
-BUILDER = $(shell whoami)@$(shell hostname)
-NOW = $(shell date -u +"%Y-%m-%dT%H:%M:%SZ")
-
 OPTIMIZE = find $(CURDIR)/public/ -not -path "*/static/*" \( -name '*.png' -o -name '*.jpg' -o -name '*.jpeg' -o -name '*.JPG' \) -print0 | \
 xargs -0 -P8 -n2 mogrify -strip -thumbnail '1000>'
 
@@ -22,7 +19,7 @@ else
 	OPENER=open
 endif
 
-.PHONY: all pre-reqs pre-commit pre-commit-install pre-commit-run build deploy serve run clean help
+.PHONY: all pre-reqs pre-commit pre-commit-install pre-commit-run build deploy serve run clean test help
 
 all: pre-reqs pre-commit clean build serve ## Default workflow
 
@@ -49,8 +46,8 @@ pre-commit-install: ## Install pre-commit hooks and necessary binaries
 	go install github.com/mrtazz/checkmake/cmd/checkmake@latest
 	# syft
 	command -v syft || curl -sSfL https://raw.githubusercontent.com/anchore/syft/main/install.sh | sh -s -- -b /usr/local/bin
-	# cosign
-	go install github.com/sigstore/cosign/cmd/cosign@latest
+	# pre-commit
+	command -v pre-commit || brew install pre-commit || sudo dnf install -y pre-commit || sudo apt install -y pre-commit
 	# install and update pre-commits
 	pre-commit install
 	pre-commit autoupdate

@@ -1,0 +1,14 @@
+{
+    "name": "Hugo",
+    "forwardPorts": [
+        1313
+    ] ,
+    "image": "mcr.microsoft.com/devcontainers/base:bookworm",
+    "features": {
+        "ghcr.io/devcontainers/features/hugo:1": {
+            "version": "0.126.1",
+            "extended": true
+        }
+    },
+    "postCreateCommand": "git submodule update --init --recursive"
+}

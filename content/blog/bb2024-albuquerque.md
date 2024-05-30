@@ -1,12 +1,12 @@
 ---
-title: "Boo-batical 2024 - Albuquerque, NM"
+title: "Albuquerque, NM"
 date: "2024-05-18"
 draft: false
-description: "The sixth stop on Boo-batical 2024 - Albuquerque, New Mexico. This was our second time in ABQ, and we really enjoyed it! A bunch of tasty food, art, and history. Not to mention several great craft breweries."
-image: 'images/bb2024-abq.jpg'
+description: "The sixth stop: Albuquerque, New Mexico. This was our second time in ABQ, and we really enjoyed it! A bunch of tasty food, art, and history. Not to mention several great craft breweries."
+image: 'images/bb2024-abq.jpg.thumb'
 ---
 
-The sixth stop on Boo-batical 2024 - Albuquerque, New Mexico. This was our second time in ABQ, and we really enjoyed it! A bunch of tasty food, art, and history. Not to mention several great craft breweries.
+The sixth stop: Albuquerque, New Mexico. This was our second time in ABQ, and we really enjoyed it! A bunch of tasty food, art, and history. Not to mention several great craft breweries.
 
 (Map here)
 

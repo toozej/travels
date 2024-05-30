@@ -7,11 +7,11 @@ MAKEFLAGS += --no-builtin-rules
 # Set default goal such that `make` runs `make help`
 .DEFAULT_GOAL := help
 
-# Build info
+# Build functions
 OPTIMIZE = find $(CURDIR)/public/ -not -path "*/static/*" \( -name '*.png' -o -name '*.jpg' -o -name '*.jpeg' -o -name '*.JPG' \) -print0 | \
 xargs -0 -P8 -n2 mogrify -strip -thumbnail '1000>'
 
-
+# Helper functions
 OS = $(shell uname -s)
 ifeq ($(OS), Linux)
 	OPENER=xdg-open
@@ -27,11 +27,14 @@ pre-reqs: pre-commit-install ## Install pre-commit hooks and necessary binaries
 	command -v hugo || brew install hugo || sudo dnf install -y hugo || sudo apt install -y hugo
 	command -v magick || brew install imagemagick || sudo dnf install -y imagemagick || sudo apt install -y imagemagick
 
-build: ## Build website to "public" output directory
+gen-thumbnails: ## Generate thumbnails from full-sized static images
+	find $(CURDIR)/static/images -not -path "*/fav/*" \( -name '*.png' -o -name '*.jpg' -o -name '*.jpeg' -o -name '*.JPG' \) -exec convert {} -resize x720 {}.thumb \;
+
+build: gen-thumbnails ## Build website to "public" output directory
 	hugo --gc --minify -d $(CURDIR)/public/
 	$(OPTIMIZE)
 
-serve: ## Run local web server
+serve: gen-thumbnails ## Run local web server
 	$(OPENER) http://localhost:1313
 	hugo server --gc --minify -p 1313 --watch
 

@@ -1,12 +1,12 @@
 ---
-title: "Boo-batical 2024 - Death Valley, CA"
+title: "Death Valley, CA"
 date: "2024-05-11"
 draft: false
-description: "The second stop on Boo-batical 2024 - Death Valley, California. It's so hot here! 100F+ even in the evening. We stayed at Furnace Creek Campground."
-image: 'images/bb2024-death-valley.JPG'
+description: "The second stop: Death Valley, California. It's so hot here! 100F+ even in the evening. We stayed at Furnace Creek Campground."
+image: 'images/bb2024-death-valley.JPG.thumb'
 ---
 
-The second stop on Boo-batical 2024 - Death Valley, California. It's so hot here! 100F+ even in the evening. We stayed at Furnace Creek Campground.
+The second stop: Death Valley, California. It's so hot here! 100F+ even in the evening. We stayed at Furnace Creek Campground.
 
 (Map here)
 

@@ -2,7 +2,6 @@
 title: "Cosmic Campground, NM"
 date: "2024-05-13"
 draft: false
-description: "The fourth stop: Cosmic Campground, NM. Cosmic Campground was the first dark sky sanctuary in North America. Sadly it was cloudy all nights we were here..."
 image: 'images/bb2024-cosmic-campground.JPG.thumb'
 ---
 

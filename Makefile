@@ -28,7 +28,7 @@ pre-reqs: pre-commit-install ## Install pre-commit hooks and necessary binaries
 	command -v magick || brew install imagemagick || sudo dnf install -y imagemagick || sudo apt install -y imagemagick
 
 gen-thumbnails: ## Generate thumbnails from full-sized static images
-	find $(CURDIR)/static/images -not -path "*/fav/*" \( -name '*.png' -o -name '*.jpg' -o -name '*.jpeg' -o -name '*.JPG' \) -exec convert {} -resize x720 {}.thumb \;
+	find $(CURDIR)/static/images -not -path "*/fav/*" \( -name '*.png' -o -name '*.jpg' -o -name '*.jpeg' -o -name '*.JPG' \) -exec magick {} -resize x720 {}.thumb \;
 
 build: gen-thumbnails ## Build website to "public" output directory
 	hugo --gc --minify -d $(CURDIR)/public/

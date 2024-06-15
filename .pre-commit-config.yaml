@@ -51,6 +51,7 @@ repos:
     hooks:
       - id: yamlfmt
         args: [--mapping, "2", --sequence, "4", --offset, "2", --width, "88", --preserve-quotes]
+        exclude: themes/
 
   # lint Makefile
   - repo: https://github.com/mrtazz/checkmake/
@@ -66,6 +67,7 @@ repos:
       - id: semgrep
         # See https://semgrep.dev/explore to select a ruleset and copy its URL
         args: ['--config', 'auto', '--error', '--skip-unknown-extensions', '--quiet']
+        exclude: themes/
 
   - repo: meta
     hooks:

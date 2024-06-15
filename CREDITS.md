@@ -5,7 +5,7 @@
 - https://gohugo.io/content-management/static-files/
 
 ## Hugo Theme
-- https://github.com/victoriadrake/hugo-theme-quint
+- https://github.com/onweru/newsroom
 
 ## Makefile for Hugo
 - https://victoria.dev/blog/a-portable-makefile-for-continuous-delivery-with-hugo-and-github-pages/

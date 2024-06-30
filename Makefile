@@ -19,13 +19,23 @@ else
 	OPENER=open
 endif
 
-.PHONY: all pre-reqs pre-commit pre-commit-install pre-commit-run build deploy serve run clean test help
+.PHONY: all pre-reqs update-hugo-version pre-commit pre-commit-install pre-commit-run build deploy serve run clean test help
 
-all: pre-reqs pre-commit clean build serve ## Default workflow
+all: pre-reqs update-hugo-version pre-commit clean build serve ## Default workflow
 
 pre-reqs: pre-commit-install ## Install pre-commit hooks and necessary binaries
 	command -v hugo || brew install hugo || sudo dnf install -y hugo || sudo apt install -y hugo
 	command -v magick || brew install imagemagick || sudo dnf install -y imagemagick || sudo apt install -y imagemagick
+
+update-hugo-version: ## Updates Hugo version used throughout repo to latest
+	@OLD_VERSION="0.128.0" && \
+	VERSION=`curl -s https://api.github.com/repos/gohugoio/hugo/releases/latest | jq -r '.html_url' | cut -d "/" -f 8 | tr -d "v"`; \
+	if [[ "$$OLD_VERSION" != "$$VERSION" ]]; then \
+		echo "Updating Hugo from $$OLD_VERSION to $$VERSION"; \
+		echo "$(CURDIR)/.github/workflows/hugo.yaml	$(CURDIR)/.devcontainer/devcontainer.json $(CURDIR)/Makefile" | xargs sed -i "" -e "s/$$OLD_VERSION/$$VERSION/g"; \
+	else \
+		echo "Already on current Hugo version $$VERSION"; \
+	fi
 
 gen-thumbnails: ## Generate thumbnails from full-sized static images
 	find $(CURDIR)/static/images -not -path "*/fav/*" \( -name '*.png' -o -name '*.jpg' -o -name '*.jpeg' -o -name '*.JPG' \) -exec magick {} -resize x720 {}.thumb \;

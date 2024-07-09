@@ -5,6 +5,10 @@ theme = 'newsroom'
 enableRobotsTXT = true
 paginate = 30
 
+[taxonomies]
+tag = 'tags'
+category = 'categories'
+
 [params]
 blogDir = "blog"
 logo = "" # if the value is an empty string, the site title will be shown instead

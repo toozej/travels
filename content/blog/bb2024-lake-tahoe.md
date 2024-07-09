@@ -1,7 +1,11 @@
 ---
 title: "Lake Tahoe, NV"
-date: "2024-05-11"
+date: "2024-05-09"
 draft: false
+categories: 
+    - Boo-batical 2024
+tags:
+    - Nevada
 image: 'images/bb2024-lake-tahoe.JPG.thumb'
 ---
 

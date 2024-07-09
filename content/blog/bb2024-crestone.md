@@ -2,6 +2,10 @@
 title: "Crestone, CO"
 date: "2024-05-31"
 draft: false
+categories: 
+    - Boo-batical 2024
+tags:
+    - Colorado
 image: 'images/bb2024-crestone.jpg.thumb'
 ---
 

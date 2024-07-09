@@ -2,6 +2,10 @@
 title: "Albuquerque, NM"
 date: "2024-05-18"
 draft: false
+categories: 
+    - Boo-batical 2024
+tags:
+    - New Mexico
 image: 'images/bb2024-abq.jpg.thumb'
 ---
 

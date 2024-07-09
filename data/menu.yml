@@ -1,0 +1,11 @@
+---
+  - item: About
+    url: about/
+  - item: Trips
+    url: categories/
+  - item: Tags
+    url: tags/
+  - item: Blog
+    url: "https://toozej.com"
+  - item: Photography
+    url: "https://slapsandsnaps.photo"

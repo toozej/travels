@@ -2,6 +2,10 @@
 title: "Abiquiu, NM"
 date: "2024-05-27"
 draft: false
+categories: 
+    - Boo-batical 2024
+tags:
+    - New Mexico
 image: 'images/bb2024-abiquiu.jpg.thumb'
 ---
 

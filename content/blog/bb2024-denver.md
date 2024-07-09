@@ -2,6 +2,10 @@
 title: "Denver, CO"
 date: "2024-06-02"
 draft: false
+categories: 
+    - Boo-batical 2024
+tags:
+    - Colorado
 image: 'images/bb2024-denver.jpg.thumb'
 ---
 

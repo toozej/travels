@@ -2,6 +2,9 @@
 title: "Oregon Coast, July 2024"
 date: "2024-07-02"
 draft: false
+categories: []
+tags:
+    - Oregon
 image: 'images/oregon-coast-july-2024.jpg.thumb'
 ---
 

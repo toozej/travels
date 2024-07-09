@@ -2,6 +2,10 @@
 title: "Cosmic Campground, NM"
 date: "2024-05-13"
 draft: false
+categories: 
+    - Boo-batical 2024
+tags: 
+    - New Mexico
 image: 'images/bb2024-cosmic-campground.JPG.thumb'
 ---
 

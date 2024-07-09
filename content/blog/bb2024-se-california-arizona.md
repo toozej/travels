@@ -2,6 +2,11 @@
 title: "SE California and Arizona"
 date: "2024-05-12"
 draft: false
+categories: 
+    - Boo-batical 2024
+tags:
+    - California
+    - Arizona
 image: 'images/bb2024-se-california-arizona.jpg.thumb'
 ---
 

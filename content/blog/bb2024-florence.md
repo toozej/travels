@@ -2,6 +2,10 @@
 title: "Florence, MT"
 date: "2024-06-10"
 draft: false
+categories: 
+    - Boo-batical 2024
+tags:
+    - Montana
 image: 'images/bb2024-florence.jpg.thumb'
 ---
 

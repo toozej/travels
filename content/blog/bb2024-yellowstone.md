@@ -2,6 +2,10 @@
 title: "Yellowstone National Park, WY"
 date: "2024-06-05"
 draft: false
+categories: 
+    - Boo-batical 2024
+tags:
+    - Wyoming
 image: 'images/bb2024-yellowstone.jpg.thumb'
 ---
 

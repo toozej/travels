@@ -2,6 +2,10 @@
 title: "Devil's Tower, WY"
 date: "2024-06-04"
 draft: false
+categories: 
+    - Boo-batical 2024
+tags:
+    - Wyoming
 image: 'images/bb2024-devils-tower.JPG.thumb'
 ---
 

@@ -2,6 +2,10 @@
 title: "Walla Walla, WA"
 date: "2024-06-14"
 draft: false
+categories: 
+    - Boo-batical 2024
+tags:
+    - Washington
 image: 'images/bb2024-walla-walla.jpg.thumb'
 ---
 

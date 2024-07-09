@@ -2,6 +2,10 @@
 title: "Taos, NM"
 date: "2024-05-29"
 draft: false
+categories: 
+    - Boo-batical 2024
+tags:
+    - New Mexico
 image: 'images/bb2024-taos.jpg.thumb'
 ---
 

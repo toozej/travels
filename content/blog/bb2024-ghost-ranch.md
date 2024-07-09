@@ -2,6 +2,10 @@
 title: "Ghost Ranch, NM"
 date: "2024-05-28"
 draft: false
+categories: 
+    - Boo-batical 2024
+tags:
+    - New Mexico
 image: 'images/bb2024-ghost-ranch.jpg.thumb'
 ---
 

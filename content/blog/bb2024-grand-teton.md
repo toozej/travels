@@ -2,6 +2,10 @@
 title: "Grand Teton National Park, WY"
 date: "2024-06-07"
 draft: false
+categories: 
+    - Boo-batical 2024
+tags:
+    - Wyoming
 image: 'images/bb2024-grand-teton.jpg.thumb'
 ---
 

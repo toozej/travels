@@ -2,6 +2,10 @@
 title: "Santa Fe, NM"
 date: "2024-05-23"
 draft: false
+categories: 
+    - Boo-batical 2024
+tags:
+    - New Mexico
 image: 'images/bb2024-santa-fe.jpg.thumb'
 ---
 

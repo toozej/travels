@@ -2,6 +2,10 @@
 title: "Death Valley, CA"
 date: "2024-05-11"
 draft: false
+categories: 
+    - Boo-batical 2024
+tags:
+    - California
 image: 'images/bb2024-death-valley.JPG.thumb'
 ---
 

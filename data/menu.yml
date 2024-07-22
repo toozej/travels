@@ -1,6 +1,6 @@
 ---
   - item: About
-    url: about/
+    url: "https://jamestooze.com"
   - item: Trips
     url: categories/
   - item: Tags

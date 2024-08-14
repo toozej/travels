@@ -28,7 +28,7 @@ pre-reqs: pre-commit-install ## Install pre-commit hooks and necessary binaries
 	command -v magick || brew install imagemagick || sudo dnf install -y imagemagick || sudo apt install -y imagemagick
 
 update-hugo-version: ## Updates Hugo version used throughout repo to latest
-	@OLD_VERSION="0.129.0" && \
+	@OLD_VERSION="0.132.2" && \
 	VERSION=`curl -s https://api.github.com/repos/gohugoio/hugo/releases/latest | jq -r '.html_url' | cut -d "/" -f 8 | tr -d "v"`; \
 	if [[ "$$OLD_VERSION" != "$$VERSION" ]]; then \
 		echo "Updating Hugo from $$OLD_VERSION to $$VERSION"; \

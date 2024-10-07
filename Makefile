@@ -19,7 +19,7 @@ else
 	OPENER=open
 endif
 
-.PHONY: all pre-reqs update-hugo-version pre-commit pre-commit-install pre-commit-run build deploy serve run clean test help
+.PHONY: all pre-reqs update-hugo-version pre-commit pre-commit-install pre-commit-run build deploy serve serve-docker run clean test help
 
 all: pre-reqs update-hugo-version pre-commit clean build serve ## Default workflow
 
@@ -47,6 +47,9 @@ build: gen-thumbnails ## Build website to "public" output directory
 serve: gen-thumbnails ## Run local web server
 	$(OPENER) http://localhost:1313
 	hugo server --gc --minify -p 1313 --watch
+
+serve-docker: ## Run Hugo server via Docker
+	docker run --rm --name travels-hugo -p 1313:1313 -v $(CURDIR):/src --user $$(id -u):$$(id -g) floryn90/hugo:ext-alpine server --gc --minify -p 1313 --watch
 
 run: serve ## Run local web server
 

@@ -15,16 +15,23 @@ xargs -0 -P8 -n2 mogrify -strip -thumbnail '1000>'
 OS = $(shell uname -s)
 ifeq ($(OS), Linux)
 	OPENER=xdg-open
+	BIND_ADDRESS = $(shell ip addr | grep 192 | awk '{print $$2}' | cut -d '/' -f 1)
+	HOSTNAME = $(shell hostname -f)
 else
 	OPENER=open
+	BIND_ADDRESS = localhost
+	HOSTNAME = localhost
 endif
+
+MAGICK_CONVERT_BIN = $(shell command -v magick || command -v convert)
+
 
 .PHONY: all pre-reqs update-hugo-version pre-commit pre-commit-install pre-commit-run build deploy serve serve-docker run clean test help
 
 all: pre-reqs update-hugo-version pre-commit clean build serve ## Default workflow
 
-pre-reqs: pre-commit-install ## Install pre-commit hooks and necessary binaries
-	command -v hugo || brew install hugo || sudo dnf install -y hugo || sudo apt install -y hugo
+pre-reqs: #pre-commit-install ## Install pre-commit hooks and necessary binaries
+	command -v hugo || (command -v brew && brew install hugo) || curl --silent https://api.github.com/repos/gohugoio/hugo/releases/latest | grep "browser_download_url.*Linux-64bit.tar.gz" | grep "extended" | cut -d '"' -f 4 | wget -qO- -i - | tar -xz hugo && sudo mv hugo /usr/local/bin/hugo && sudo chmod +x /usr/local/bin/hugo && rm -f hugo_extended_*_Linux-64bit.tar.gz
 	command -v magick || brew install imagemagick || sudo dnf install -y imagemagick || sudo apt install -y imagemagick
 
 update-hugo-version: ## Updates Hugo version used throughout repo to latest
@@ -38,15 +45,15 @@ update-hugo-version: ## Updates Hugo version used throughout repo to latest
 	fi
 
 gen-thumbnails: ## Generate thumbnails from full-sized static images
-	find $(CURDIR)/static/images -not -path "*/fav/*" \( -name '*.png' -o -name '*.jpg' -o -name '*.jpeg' -o -name '*.JPG' \) -exec magick {} -resize x720 {}.thumb \;
+	find $(CURDIR)/static/images -not -path "*/fav/*" \( -name '*.png' -o -name '*.jpg' -o -name '*.jpeg' -o -name '*.JPG' \) -exec $(MAGICK_CONVERT_BIN) {} -resize x720 {}.thumb \;
 
 build: gen-thumbnails ## Build website to "public" output directory
 	hugo --gc --minify -d $(CURDIR)/public/
 	$(OPTIMIZE)
 
 serve: gen-thumbnails ## Run local web server
-	$(OPENER) http://localhost:1313
-	hugo server --gc --minify -p 1313 --watch
+	echo "$(BIND_ADDRESS)"
+	hugo server --gc --minify --bind=$(BIND_ADDRESS) --baseURL=http://$(HOSTNAME)/ --port=1313 --watch
 
 serve-docker: ## Run Hugo server via Docker
 	docker run --rm --name travels-hugo -p 1313:1313 -v $(CURDIR):/src --user $$(id -u):$$(id -g) floryn90/hugo:ext-alpine server --gc --minify -p 1313 --watch

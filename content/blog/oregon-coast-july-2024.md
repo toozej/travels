@@ -12,8 +12,8 @@ A quick day trip to the coast to see puffins! Sadly I only saw one from very far
 
 We got some good driving in, the R32 is so much fun on the windy coastal back-roads. And I got some clam chowder, which no trip to the coast is complete without! 
 
-(Map here)
-
 ![Oregon Coast](/images/oregon-coast-july-2024.jpg)
 
 [More photos](https://photos.app.goo.gl/D9NGdzLgV2NAndhq9)
+
+{{< gpx id="/gpx/oregon-coast-july-2024.gpx" >}}

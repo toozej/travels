@@ -6,7 +6,7 @@
     "image": "mcr.microsoft.com/devcontainers/base:bookworm",
     "features": {
         "ghcr.io/devcontainers/features/hugo:1": {
-            "version": "0.132.2",
+            "version": "0.135.0",
             "extended": true
         }
     },

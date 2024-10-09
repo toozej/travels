@@ -22,8 +22,8 @@ Some statistics from our trip:
 - countless bug-bites
 - and even more wonderful memories shared between the three of us. What a fantastic, beautiful trip this was!
 
-(Map here)
-
 ![Walla Walla](/images/bb2024-walla-walla.jpg)
 
 [More photos](https://photos.app.goo.gl/th18xc45hGqVANPQ8)
+
+{{< gpx id="/gpx/bb2024-walla-walla.gpx" >}}

@@ -1,0 +1,7 @@
+<?xml version="1.0"?>
+<gpx version="1.1" creator="GDAL 2.2.2" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:ogr="http://osgeo.org/gdal" xmlns="http://www.topografix.com/GPX/1/1" xsi:schemaLocation="http://www.topografix.com/GPX/1/1 http://www.topografix.com/GPX/1/1/gpx.xsd">
+<metadata><bounds minlat="36.249722446265800" minlon="-106.431449390694993" maxlat="36.249722446265800" maxlon="-106.431449390694993"/></metadata>              
+<wpt lat="36.2497224462658" lon="-106.431449390694993">
+  <name>Untitled placemark</name>
+</wpt>
+</gpx>

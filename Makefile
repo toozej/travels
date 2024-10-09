@@ -14,11 +14,11 @@ xargs -0 -P8 -n2 mogrify -strip -thumbnail '1000>'
 # Helper functions
 OS = $(shell uname -s)
 ifeq ($(OS), Linux)
-	OPENER=xdg-open
+	OPENER = $(shell command -v xdg-open && xdg-open || echo "Open the following URL in a web browser:")
 	BIND_ADDRESS = $(shell ip addr | grep 192 | awk '{print $$2}' | cut -d '/' -f 1)
 	HOSTNAME = $(shell hostname -f)
 else
-	OPENER=open
+	OPENER = open
 	BIND_ADDRESS = localhost
 	HOSTNAME = localhost
 endif
@@ -35,7 +35,7 @@ pre-reqs: #pre-commit-install ## Install pre-commit hooks and necessary binaries
 	command -v magick || brew install imagemagick || sudo dnf install -y imagemagick || sudo apt install -y imagemagick
 
 update-hugo-version: ## Updates Hugo version used throughout repo to latest
-	@OLD_VERSION="0.132.2" && \
+	@OLD_VERSION="0.135.0" && \
 	VERSION=`curl -s https://api.github.com/repos/gohugoio/hugo/releases/latest | jq -r '.html_url' | cut -d "/" -f 8 | tr -d "v"`; \
 	if [[ "$$OLD_VERSION" != "$$VERSION" ]]; then \
 		echo "Updating Hugo from $$OLD_VERSION to $$VERSION"; \
@@ -52,7 +52,7 @@ build: gen-thumbnails ## Build website to "public" output directory
 	$(OPTIMIZE)
 
 serve: gen-thumbnails ## Run local web server
-	echo "$(BIND_ADDRESS)"
+	$(OPENER) http://$(HOSTNAME):1313/
 	hugo server --gc --minify --bind=$(BIND_ADDRESS) --baseURL=http://$(HOSTNAME)/ --port=1313 --watch
 
 serve-docker: ## Run Hugo server via Docker

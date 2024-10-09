@@ -1,0 +1,32 @@
+<?xml version="1.0" standalone="yes"?>
+<gpx xmlns="http://www.topografix.com/GPX/1/1" creator="KML2GPX.COM" version="1.1" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://www.topografix.com/GPX/1/1 http://www.topografix.com/GPX/1/1/gpx.xsd">
+    <metadata>
+        <name><![CDATA[Untitled]]></name>
+        <desc><![CDATA[Converted from a KML file KML2GPX.COM]]></desc>
+                </metadata>
+
+                                                                                
+                <wpt lat="45.8917738" lon="-123.9615274">
+                                                            <ele>0</ele>
+                    <name><![CDATA[Cannon Beach]]></name>
+                    <cmt><![CDATA[Waypoint no: 1]]></cmt>
+                    <desc><![CDATA[This is waypoint no: 1]]></desc>
+                </wpt>
+                                                                                                                            
+                <wpt lat="45.8842202" lon="-123.9677336">
+                                                            <ele>0</ele>
+                    <name><![CDATA[Haystack Rock Marine Garden]]></name>
+                    <cmt><![CDATA[Waypoint no: 2]]></cmt>
+                    <desc><![CDATA[This is waypoint no: 2]]></desc>
+                </wpt>
+                                                                                                                            
+                <wpt lat="45.8841173" lon="-123.9684844">
+                                                            <ele>0</ele>
+                    <name><![CDATA[Haystack Rock]]></name>
+                    <cmt><![CDATA[Waypoint no: 3]]></cmt>
+                    <desc><![CDATA[This is waypoint no: 3]]></desc>
+                </wpt>
+                                                            
+                    
+    
+</gpx>

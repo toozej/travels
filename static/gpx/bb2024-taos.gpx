@@ -1,0 +1,10 @@
+<?xml version="1.0"?>
+<gpx version="1.1" creator="GDAL 2.2.2" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:ogr="http://osgeo.org/gdal" xmlns="http://www.topografix.com/GPX/1/1" xsi:schemaLocation="http://www.topografix.com/GPX/1/1 http://www.topografix.com/GPX/1/1/gpx.xsd">
+<metadata><bounds minlat="36.407160834491002" minlon="-105.574582441540002" maxlat="36.407997399999999" maxlon="-105.572515999999993"/></metadata>              
+<wpt lat="36.407160834491002" lon="-105.574582441540002">
+  <name>Taos Historic District</name>
+</wpt>
+<wpt lat="36.4079974" lon="-105.572516">
+  <name>The Historic Taos Inn</name>
+</wpt>
+</gpx>

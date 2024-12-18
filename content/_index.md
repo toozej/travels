@@ -4,5 +4,5 @@ date = 2024-05-22
 draft = false
 +++
 
-Travel photos from recent trips.
+Travel diaries and photos from recent trips.
 

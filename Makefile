@@ -14,7 +14,7 @@ xargs -0 -P8 -n2 mogrify -strip -thumbnail '1000>'
 # Helper functions
 OS = $(shell uname -s)
 ifeq ($(OS), Linux)
-	OPENER = $(shell command -v xdg-open && xdg-open || echo "Open the following URL in a web browser:")
+	OPENER = $(shell command -v xdg-open && xdg-open || echo "echo")
 	BIND_ADDRESS = $(shell ip addr | grep 192 | awk '{print $$2}' | cut -d '/' -f 1)
 	HOSTNAME = $(shell hostname -f)
 else
@@ -35,7 +35,7 @@ pre-reqs: #pre-commit-install ## Install pre-commit hooks and necessary binaries
 	command -v magick || brew install imagemagick || sudo dnf install -y imagemagick || sudo apt install -y imagemagick
 
 update-hugo-version: ## Updates Hugo version used throughout repo to latest
-	@OLD_VERSION="0.135.0" && \
+	@OLD_VERSION="0.140.0" && \
 	VERSION=`curl -s https://api.github.com/repos/gohugoio/hugo/releases/latest | jq -r '.html_url' | cut -d "/" -f 8 | tr -d "v"`; \
 	if [[ "$$OLD_VERSION" != "$$VERSION" ]]; then \
 		echo "Updating Hugo from $$OLD_VERSION to $$VERSION"; \
@@ -45,14 +45,15 @@ update-hugo-version: ## Updates Hugo version used throughout repo to latest
 	fi
 
 gen-thumbnails: ## Generate thumbnails from full-sized static images
-	find $(CURDIR)/static/images -not -path "*/fav/*" \( -name '*.png' -o -name '*.jpg' -o -name '*.jpeg' -o -name '*.JPG' \) -exec $(MAGICK_CONVERT_BIN) {} -resize x720 {}.thumb \;
+	find $(CURDIR)/static/images -not -path "*/fav/*" \( -name '*.png' -o -name '*.jpg' -o -name '*.jpeg' -o -name '*.JPG' \) \
+	-exec sh -c '[ ! -f "{}.thumb" ] && $(MAGICK_CONVERT_BIN) "{}" -resize x720 "{}.thumb"' \;
 
 build: gen-thumbnails ## Build website to "public" output directory
 	hugo --gc --minify -d $(CURDIR)/public/
 	$(OPTIMIZE)
 
 serve: gen-thumbnails ## Run local web server
-	$(OPENER) http://$(HOSTNAME):1313/
+	$(OPENER) http://$(HOSTNAME):1313/ || echo "Open the following URL in a web browser: http://$(HOSTNAME):1313/"
 	hugo server --gc --minify --bind=$(BIND_ADDRESS) --baseURL=http://$(HOSTNAME)/ --port=1313 --watch
 
 serve-docker: ## Run Hugo server via Docker

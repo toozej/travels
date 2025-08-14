@@ -67,7 +67,7 @@ pre-commit-install: ## Install pre-commit hooks and necessary binaries
 	# shellcheck
 	command -v shellcheck || sudo dnf install -y ShellCheck || sudo apt install -y shellcheck || brew install shellcheck
 	# checkmake
-	go install github.com/mrtazz/checkmake/cmd/checkmake@latest
+	go install github.com/checkmake/checkmake/cmd/checkmake@latest
 	# syft
 	command -v syft || curl -sSfL https://raw.githubusercontent.com/anchore/syft/main/install.sh | sh -s -- -b /usr/local/bin
 	# pre-commit

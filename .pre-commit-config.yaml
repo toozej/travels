@@ -4,7 +4,7 @@ minimum_pre_commit_version: "1.15"
 
 repos:
   - repo: https://github.com/pre-commit/pre-commit-hooks
-    rev: v4.6.0
+    rev: v6.0.0
     hooks:
       - id: check-yaml
         name: Check for valid YAML syntax in repo
@@ -55,10 +55,17 @@ repos:
 
   # lint Makefile
   - repo: https://github.com/mrtazz/checkmake/
-    rev: 0.2.2
+    rev: v0.3.0
     hooks:
       - id: checkmake
         files: Makefile
+
+  # lint GitHub Actions workflows
+  - repo: https://github.com/rhysd/actionlint
+    rev: v1.7.10
+    hooks:
+      - id: actionlint
+        args: ['-ignore', 'SC2086']
 
   # run semgrep on all known filetypes
   - repo: https://github.com/returntocorp/semgrep

@@ -68,6 +68,8 @@ pre-commit-install: ## Install pre-commit hooks and necessary binaries
 	command -v shellcheck || sudo dnf install -y ShellCheck || sudo apt install -y shellcheck || brew install shellcheck
 	# checkmake
 	go install github.com/checkmake/checkmake/cmd/checkmake@latest
+	# actionlint
+	command -v actionlint || brew install actionlint || go install github.com/rhysd/actionlint/cmd/actionlint@latest
 	# syft
 	command -v syft || curl -sSfL https://raw.githubusercontent.com/anchore/syft/main/install.sh | sh -s -- -b /usr/local/bin
 	# pre-commit

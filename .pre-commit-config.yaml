@@ -54,7 +54,7 @@ repos:
         exclude: themes/
 
   # lint Makefile
-  - repo: https://github.com/mrtazz/checkmake/
+  - repo: https://github.com/checkmake/checkmake/
     rev: v0.3.0
     hooks:
       - id: checkmake
@@ -62,14 +62,14 @@ repos:
 
   # lint GitHub Actions workflows
   - repo: https://github.com/rhysd/actionlint
-    rev: v1.7.10
+    rev: v1.7.12
     hooks:
       - id: actionlint
         args: ['-ignore', 'SC2086']
 
   # run semgrep on all known filetypes
-  - repo: https://github.com/returntocorp/semgrep
-    rev: 'v1.89.0'
+  - repo: https://github.com/semgrep/pre-commit
+    rev: 'v1.157.0'
     hooks:
       - id: semgrep
         # See https://semgrep.dev/explore to select a ruleset and copy its URL

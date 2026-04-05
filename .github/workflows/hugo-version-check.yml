@@ -10,6 +10,7 @@ permissions:
   contents: write
   pull-requests: write
   issues: write  # Required for closing PRs
+  actions: write
 
 jobs:
   check-hugo-version:
@@ -22,37 +23,8 @@ jobs:
         id: version-check
         run: |
           set -e  # Exit on any error
-          CURRENT_VERSION=$(yq '.services.words_hugo.image' docker-compose.yml | sed -E 's/.*hugo:([0-9.]+).*/\1/')
-          API_URL="https://registry.hub.docker.com/v2/repositories/floryn90/hugo/tags?page_size=100"
-          ALL_TAGS=""
-
-          # Loop through all pages
-          while [ -n "$API_URL" ]; do
-            echo "Fetching from: $API_URL"
-            RESPONSE=$(curl -sf "$API_URL") || { echo "Failed to fetch from Docker Hub API"; exit 1; }
-
-            # Check if response is valid JSON
-            if ! echo "$RESPONSE" | jq empty > /dev/null 2>&1; then
-              echo "Invalid JSON response"
-              exit 1
-            fi
-
-            PAGE_TAGS=$(echo "$RESPONSE" | jq -r '.results[].name') || { echo "Failed to parse tags"; exit 1; }
-            if [ -n "$PAGE_TAGS" ]; then
-              ALL_TAGS="${ALL_TAGS}${PAGE_TAGS}"$'\n'
-            fi
-
-            # Get next page URL
-            API_URL=$(echo "$RESPONSE" | jq -r '.next // empty')
-            echo "Next page URL: ${API_URL:-none}"
-          done
-
-          # Debug output
-          echo "All collected tags:"
-          echo "$ALL_TAGS"
-
-          # Process all collected tags
-          LATEST_VERSION=$(echo "$ALL_TAGS" | grep -E "^[0-9]+\.[0-9]+\.[0-9]+-ext-alpine-onbuild$" | grep -v "latest" | sort -V | tail -n1 | sed 's/-ext-alpine-onbuild//' | tr -d '[:space:]')
+          CURRENT_VERSION=$(grep -E '^[[:space:]]*HUGO_VERSION:[[:space:]]*[0-9]+\.[0-9]+\.[0-9]+' .github/workflows/hugo.yaml | head -n1 | sed -E 's/.*HUGO_VERSION:[[:space:]]*([0-9]+\.[0-9]+\.[0-9]+).*/\1/')
+          LATEST_VERSION=$(curl -sf https://api.github.com/repos/gohugoio/hugo/releases/latest | jq -r '.tag_name' | sed 's/^v//')
 
           if [ -z "$LATEST_VERSION" ]; then
             echo "No valid version found"
@@ -80,14 +52,11 @@ jobs:
         if: steps.version-check.outputs.update_available == 'true'
         run: |
           NEW_VERSION="${{ steps.version-check.outputs.new_version }}"
-          docker pull "floryn90/hugo:${NEW_VERSION}-ext-alpine-onbuild"
-          docker volume create words_hugo_output
+          wget -O "${{ runner.temp }}/hugo.deb" "https://github.com/gohugoio/hugo/releases/download/v${NEW_VERSION}/hugo_extended_${NEW_VERSION}_linux-amd64.deb"
+          sudo dpkg -i "${{ runner.temp }}/hugo.deb"
+
           # Capture the build output to a variable
-          BUILD_OUTPUT=$(docker run --rm \
-            --env-file "${PWD}/hugo.env" \
-            -v "${PWD}/site:/src" \
-            -v words_hugo_output:/target \
-            "floryn90/hugo:${NEW_VERSION}-ext-alpine-onbuild" --noBuildLock 2>&1)
+          BUILD_OUTPUT=$(HUGO_ENVIRONMENT=production HUGO_ENV=production TZ=America/Los_Angeles hugo --gc --minify 2>&1)
           # Add build output to GITHUB_OUTPUT, escaping newlines
           {
             echo "run-output<<EOF"
@@ -105,10 +74,7 @@ jobs:
           # shellcheck disable=SC2016
           ESCAPED_OLD_VERSION=$(printf '%s\n' "$OLD_VERSION" | sed -e 's/[.[\*^$()+?{}|]/\\&/g')
 
-          # Update docker-compose.yml
-          sed -i -E "s#(floryn90/hugo:)[0-9]+\.[0-9]+\.[0-9]+(-ext-alpine-onbuild)#\\1${NEW_VERSION}\\2#" docker-compose.yml
-
-          # Update Makefile, devcontainer, hugo workflow
+          # Update Makefile, devcontainer, and Hugo workflow
           sed -i -E "s/${ESCAPED_OLD_VERSION}/${NEW_VERSION}/g" \
             .github/workflows/hugo.yaml \
             .devcontainer/devcontainer.json \
@@ -133,6 +99,8 @@ jobs:
       - name: Create Pull Request
         if: steps.version-check.outputs.update_available == 'true' && success()
         uses: peter-evans/create-pull-request@v8
+        env:
+          GH_TOKEN: ${{ github.token }}
         with:
           commit-message: "chore: Update Hugo version to ${{ steps.version-check.outputs.new_version\
             \ }}"
@@ -142,7 +110,6 @@ jobs:
           branch: update-hugo-${{ steps.version-check.outputs.new_version }}
           delete-branch: true
           add-paths: |
-            docker-compose.yml
             Makefile
             .github/workflows/hugo.yaml
             .devcontainer/devcontainer.json

@@ -17,7 +17,7 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - name: Checkout repository for current version check
-        uses: actions/checkout@v6
+        uses: actions/checkout@v6.0.2
 
       - name: Check for new Hugo image version
         id: version-check
@@ -42,7 +42,7 @@ jobs:
 
       - name: Checkout repository
         if: steps.version-check.outputs.update_available == 'true'
-        uses: actions/checkout@v6
+        uses: actions/checkout@v6.0.2
         with:
           submodules: recursive
           fetch-depth: 0

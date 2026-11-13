@@ -7,6 +7,8 @@ MAKEFLAGS += --no-builtin-rules
 # Set default goal such that `make` runs `make help`
 .DEFAULT_GOAL := help
 
+HUGO_VERSION = 0.170.0
+
 # Build functions
 OPTIMIZE = find $(CURDIR)/public/ -not -path "*/static/*" \( -name '*.png' -o -name '*.jpg' -o -name '*.jpeg' -o -name '*.JPG' \) -print0 | \
 xargs -0 -P8 -n2 mogrify -strip -thumbnail '1000>'
@@ -31,15 +33,34 @@ MAGICK_CONVERT_BIN = $(shell command -v magick || command -v convert)
 all: pre-reqs update-hugo-version pre-commit clean build serve ## Default workflow
 
 pre-reqs: #pre-commit-install ## Install pre-commit hooks and necessary binaries
-	command -v hugo || (command -v brew && brew install hugo) || curl --silent https://api.github.com/repos/gohugoio/hugo/releases/latest | grep "browser_download_url.*Linux-64bit.tar.gz" | grep "extended" | cut -d '"' -f 4 | wget -qO- -i - | tar -xz hugo && sudo mv hugo /usr/local/bin/hugo && sudo chmod +x /usr/local/bin/hugo && rm -f hugo_extended_*_Linux-64bit.tar.gz
+	@command -v hugo || { \
+		if command -v brew; then \
+			brew install hugo; \
+		else \
+			case "$$(uname -m)" in \
+				x86_64|amd64) HUGO_ARCH=amd64 ;; \
+				aarch64|arm64) HUGO_ARCH=arm64 ;; \
+				*) echo "Hugo installation requires an x64 or ARM64 processor." >&2; exit 1 ;; \
+			esac; \
+			HUGO_TEMP_DIR=$$(mktemp -d); \
+			trap 'rm -rf "$$HUGO_TEMP_DIR"' EXIT; \
+			curl -fsSL "https://github.com/gohugoio/hugo/releases/download/v$(HUGO_VERSION)/hugo_$(HUGO_VERSION)_linux-$$HUGO_ARCH.tar.gz" -o "$$HUGO_TEMP_DIR/hugo.tar.gz" && \
+			tar -xzf "$$HUGO_TEMP_DIR/hugo.tar.gz" -C "$$HUGO_TEMP_DIR" hugo && \
+			sudo install -m 0755 "$$HUGO_TEMP_DIR/hugo" /usr/local/bin/hugo; \
+		fi; \
+	}
+	command -v sass || sudo bash scripts/install-dart-sass.sh
 	command -v magick || brew install imagemagick || sudo dnf install -y imagemagick || sudo apt install -y imagemagick
 
 update-hugo-version: ## Updates Hugo version used throughout repo to latest
-	@OLD_VERSION="0.168.0" && \
-	VERSION=`curl -s https://api.github.com/repos/gohugoio/hugo/releases/latest | jq -r '.html_url' | cut -d "/" -f 8 | tr -d "v"`; \
+	@set -euo pipefail; \
+	OLD_VERSION="$(HUGO_VERSION)"; \
+	VERSION=$$(curl -fsSL https://api.github.com/repos/gohugoio/hugo/releases/latest | jq -er '.tag_name' | sed 's/^v//'); \
 	if [[ "$$OLD_VERSION" != "$$VERSION" ]]; then \
 		echo "Updating Hugo from $$OLD_VERSION to $$VERSION"; \
-		echo "$(CURDIR)/.github/workflows/hugo.yaml	$(CURDIR)/.devcontainer/devcontainer.json $(CURDIR)/Makefile" | xargs sed -i "" -e "s/$$OLD_VERSION/$$VERSION/g"; \
+		for VERSION_FILE in .github/workflows/hugo.yaml .devcontainer/devcontainer.json Makefile; do \
+			sed -i.bak -e "s/$$OLD_VERSION/$$VERSION/g" "$$VERSION_FILE" && rm -f "$$VERSION_FILE.bak" || exit 1; \
+		done; \
 	else \
 		echo "Already on current Hugo version $$VERSION"; \
 	fi

@@ -47,12 +47,16 @@ jobs:
           submodules: recursive
           fetch-depth: 0
 
+      - name: Install Dart Sass
+        if: steps.version-check.outputs.update_available == 'true'
+        run: sudo bash scripts/install-dart-sass.sh
+
       - name: Test build with new Hugo version
         id: hugo-build
         if: steps.version-check.outputs.update_available == 'true'
         run: |
           NEW_VERSION="${{ steps.version-check.outputs.new_version }}"
-          wget -O "${{ runner.temp }}/hugo.deb" "https://github.com/gohugoio/hugo/releases/download/v${NEW_VERSION}/hugo_extended_${NEW_VERSION}_linux-amd64.deb"
+          wget -O "${{ runner.temp }}/hugo.deb" "https://github.com/gohugoio/hugo/releases/download/v${NEW_VERSION}/hugo_${NEW_VERSION}_linux-amd64.deb"
           sudo dpkg -i "${{ runner.temp }}/hugo.deb"
 
           # Capture the build output to a variable

@@ -20,7 +20,7 @@ For all content published using markdown, deeplinks will be added to the pages s
 
 ## Install Newsroom Theme
 
-__Note:__ Newsroom uses is styled in sass. Thefore, __hugo-extended version__ must be installed on your system.
+__Note:__ Newsroom uses Sass for its styles. Install Dart Sass before you build the theme.
 
 ### Option 1: Add Newsroom as a git submodule
 

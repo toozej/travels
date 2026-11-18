@@ -7,7 +7,7 @@ MAKEFLAGS += --no-builtin-rules
 # Set default goal such that `make` runs `make help`
 .DEFAULT_GOAL := help
 
-HUGO_VERSION = 0.170.0
+HUGO_VERSION = 0.170.1
 
 # Build functions
 OPTIMIZE = find $(CURDIR)/public/ -not -path "*/static/*" \( -name '*.png' -o -name '*.jpg' -o -name '*.jpeg' -o -name '*.JPG' \) -print0 | \

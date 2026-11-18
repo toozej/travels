@@ -6,7 +6,7 @@
     "image": "mcr.microsoft.com/devcontainers/base:bookworm",
     "features": {
         "ghcr.io/devcontainers/features/hugo:1": {
-            "version": "0.170.0"
+            "version": "0.170.1"
         }
     },
     "postCreateCommand": "git submodule update --init --recursive && sudo bash scripts/install-dart-sass.sh"
